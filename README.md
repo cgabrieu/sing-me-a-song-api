@@ -1,8 +1,8 @@
-## Sing me a Song API 😊
+## Sing me a Song API 🎧
 
 <div align="center">
   <a href="https://sing-me-a-song-cgabrieu.vercel.app">
-    <img src="https://user-images.githubusercontent.com/25062334/144647668-cf0d316d-afc8-48fe-b230-62f9d44d7dfe.png">
+    <img src="https://user-images.githubusercontent.com/25062334/144647668-cf0d316d-afc8-48fe-b230-62f9d44d7dfe.png" width="300px">
   </a>
     <br />
     <a href="https://sing-me-a-song-cgabrieu.vercel.app">View the deploy</a>
@@ -21,13 +21,13 @@ Have you ever asked someone for a song recommendation? We have a tool to make it
 
 Tools that were used in the project:
 <p>
-  <img src='https://img.shields.io/badge/Node.js-000000?style=for-the-badge&logo=nodedotjs&logoColor=white'>
-  <img src='https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white'>
-  <img src="https://img.shields.io/badge/Jest-000000?style=for-the-badge&logo=jest&logoColor=white"/>
-  <img src='https://img.shields.io/badge/PostgreSQL-000000?style=for-the-badge&logo=postgresql&logoColor=white'>
-  <img src='https://img.shields.io/badge/eslint-000000?style=for-the-badge&logo=eslint&logoColor=white'>
-  <img src='https://img.shields.io/badge/npm-000000?style=for-the-badge&logo=npm&logoColor=white'>
-  <img src='https://img.shields.io/badge/Heroku-000000?style=for-the-badge&logo=heroku&logoColor=white'>
+  <img src='https://img.shields.io/badge/Node.js-000000?style=for-the-badge&logo=nodedotjs'>
+  <img src='https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express'>
+  <img src="https://img.shields.io/badge/Jest-000000?style=for-the-badge&logo=jest"/>
+  <img src='https://img.shields.io/badge/PostgreSQL-000000?style=for-the-badge&logo=postgresql'>
+  <img src='https://img.shields.io/badge/eslint-000000?style=for-the-badge&logo=eslint'>
+  <img src='https://img.shields.io/badge/npm-000000?style=for-the-badge&logo=npm'>
+  <img src='https://img.shields.io/badge/Heroku-000000?style=for-the-badge&logo=heroku'>
 </p>
   
 <br/>
