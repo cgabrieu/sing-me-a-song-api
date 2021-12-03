@@ -1,0 +1,85 @@
+## Sing me a Song API 😊
+
+<div align="center">
+  <a href="https://sing-me-a-song-cgabrieu.vercel.app">
+    <img src="https://user-images.githubusercontent.com/25062334/144647668-cf0d316d-afc8-48fe-b230-62f9d44d7dfe.png">
+  </a>
+    <br />
+    <a href="https://sing-me-a-song-cgabrieu.vercel.app">View the deploy</a>
+    <br />
+</div>
+  
+<br/>
+
+## About
+
+Have you ever asked someone for a song recommendation? We have a tool to make it simple. Sing me a song is an API for music recommendation. If many people like a recommendation, the more likely it is to be recommended to others.
+    
+<br/>
+
+## Technologies
+
+Tools that were used in the project:
+<p>
+  <img src='https://img.shields.io/badge/Node.js-000000?style=for-the-badge&logo=nodedotjs&logoColor=white'>
+  <img src='https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white'>
+  <img src="https://img.shields.io/badge/Jest-000000?style=for-the-badge&logo=jest&logoColor=white"/>
+  <img src='https://img.shields.io/badge/PostgreSQL-000000?style=for-the-badge&logo=postgresql&logoColor=white'>
+  <img src='https://img.shields.io/badge/eslint-000000?style=for-the-badge&logo=eslint&logoColor=white'>
+  <img src='https://img.shields.io/badge/npm-000000?style=for-the-badge&logo=npm&logoColor=white'>
+  <img src='https://img.shields.io/badge/Heroku-000000?style=for-the-badge&logo=heroku&logoColor=white'>
+</p>
+  
+<br/>
+
+## Getting Started
+
+To run locally follow the steps
+
+### Prerequisites
+
+This is an example of how to list things you need to use the software and how to install them.
+* npm
+```sh
+npm install npm@latest -g
+```
+
+### Installation
+
+1. Create the root folder named sing-me-a-song and access it
+```sh
+mkdir sing-me-a-song && cd sing-me-a-song
+```
+2. Clone the repo
+```sh
+git clone https://github.com/cgabrieu/sing-me-a-song-api.git
+```
+3. Install dependencies with npm
+```sh
+npm install
+```
+4. Create a database using the command below via postgres
+```sh
+CREATE DATABASE singmeasong;
+```
+5. Automatically create all necessary tables to backend repo with <a href="https://github.com/cgabrieu/sing-me-a-song-api/blob/main/dump.sql">dump</a>. 
+
+8. Connect your backend to the database, for that, rename the .env.example to .env.dev and fill in your data.
+
+### How to run
+
+1. Run the frontend using the command (remember to be on the backend repo): 
+```sh
+npm run start:dev
+```
+2. Run the frontend using the command (remember to be on the fronend repo): 
+```sh
+npm start
+```
+  
+<br/>
+
+## Developer
+
+* [Carlos Gabriel](https://github.com/cgabrieu)
+
