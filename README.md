@@ -68,13 +68,9 @@ CREATE DATABASE singmeasong;
 
 ### How to run
 
-1. Run the frontend using the command (remember to be on the backend repo): 
+1. Run the frontend using the command (remember to be on the repo): 
 ```sh
 npm run start:dev
-```
-2. Run the frontend using the command (remember to be on the fronend repo): 
-```sh
-npm start
 ```
   
 <br/>
