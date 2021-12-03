@@ -1,11 +1,11 @@
 ## Sing me a Song API 🎧
 
 <div align="center">
-  <a href="https://sing-me-a-song-cgabrieu.vercel.app">
+  <a href="https://sing-me-a-song-cgabrieu.herokuapp.com/recommendations/top/10">
     <img src="https://user-images.githubusercontent.com/25062334/144647668-cf0d316d-afc8-48fe-b230-62f9d44d7dfe.png" width="300px">
   </a>
     <br />
-    <a href="https://sing-me-a-song-cgabrieu.vercel.app">View the deploy</a>
+    <a href="https://sing-me-a-song-cgabrieu.herokuapp.com/recommendations/top/10">View the deploy</a>
     <br />
 </div>
   
@@ -23,11 +23,11 @@ Tools that were used in the project:
 <p>
   <img src='https://img.shields.io/badge/Node.js-000000?style=for-the-badge&logo=nodedotjs'>
   <img src='https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express'>
-  <img src="https://img.shields.io/badge/Jest-000000?style=for-the-badge&logo=jest"/>
+  <img src="https://img.shields.io/badge/Jest-000000?style=for-the-badge&logo=jest&logoColor=c03c14"/>
   <img src='https://img.shields.io/badge/PostgreSQL-000000?style=for-the-badge&logo=postgresql'>
-  <img src='https://img.shields.io/badge/eslint-000000?style=for-the-badge&logo=eslint'>
+  <img src='https://img.shields.io/badge/eslint-000000?style=for-the-badge&logo=eslint&logoColor=472fb9'>
   <img src='https://img.shields.io/badge/npm-000000?style=for-the-badge&logo=npm'>
-  <img src='https://img.shields.io/badge/Heroku-000000?style=for-the-badge&logo=heroku'>
+  <img src='https://img.shields.io/badge/Heroku-000000?style=for-the-badge&logo=heroku&logoColor=410093'>
 </p>
   
 <br/>
