@@ -24,3 +24,22 @@ export async function postRecommendation(req, res, next) {
     return next(error);
   }
 }
+
+export async function postUpVote(req, res, next) {
+  try {
+    const { id } = req.params;
+
+    if (!Number.isInteger(Number(id)) || id < 1) {
+      return res.status(400).send({
+        message: 'Invalid Recommendation Id',
+      });
+    }
+
+    return res.status(200).send({
+      message: 'Voted Successfully +1',
+    });
+  } catch (error) {
+    if (error instanceof Conflict) return res.status(409).send(error.message);
+    return next(error);
+  }
+}
