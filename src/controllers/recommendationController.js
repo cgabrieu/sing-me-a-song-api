@@ -1,4 +1,5 @@
 import Conflict from '../errors/Conflict.js';
+import NotFound from '../errors/NotFound.js';
 import * as recommendationSchema from '../schemas/recommendationSchema.js';
 import * as recommendationService from '../services/recommendationService.js';
 
@@ -43,7 +44,16 @@ export async function postVote(req, res, next) {
       message: `Voted ${type} Successfully`,
     });
   } catch (error) {
-    if (error instanceof Conflict) return res.status(404).send(error.message);
+    if (error instanceof NotFound) return res.status(404).send(error.message);
+    return next(error);
+  }
+}
+
+export async function getRecommendation(req, res, next) {
+  try {
+
+  } catch (error) {
+    if (error instanceof NotFound) return res.status(404).send(error.message);
     return next(error);
   }
 }
