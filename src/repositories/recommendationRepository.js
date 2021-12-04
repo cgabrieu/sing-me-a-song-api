@@ -32,9 +32,16 @@ export async function vote(id, signal) {
   return result.rows[0];
 }
 
-export async function getRandom(isPopularRecommendation) {
+export async function getFilterRandom(isPopularRecommendation) {
   const result = await connection.query(
     `SELECT * FROM recommendations WHERE score ${isPopularRecommendation} 10 ORDER BY random() LIMIT 1;`,
+  );
+  return result.rows[0];
+}
+
+export async function getRandom() {
+  const result = await connection.query(
+    'SELECT * FROM recommendations ORDER BY random() LIMIT 1;',
   );
   return result.rows[0];
 }
