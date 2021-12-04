@@ -16,7 +16,7 @@ export async function postRecommendation(req, res, next) {
 
     await recommendationService.post(name, youtubeLink);
 
-    return res.status(500).send({
+    return res.status(200).send({
       message: 'Recommendation created successfully',
     });
   } catch (error) {
