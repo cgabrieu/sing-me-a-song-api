@@ -13,4 +13,7 @@ export async function post(name, youtubeLink) {
 export async function vote(id, type) {
   const recommendationExists = await recommendationRepository.findId(id);
   if (!recommendationExists) throw new NotFound('Recommendation not found');
+
+  const votedRecommendation = await recommendationRepository.vote(id, type);
+  return votedRecommendation;
 }

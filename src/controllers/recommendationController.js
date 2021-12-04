@@ -25,7 +25,7 @@ export async function postRecommendation(req, res, next) {
   }
 }
 
-export async function postUpVote(req, res, next) {
+export async function postVote(req, res, next) {
   try {
     const { id } = req.params;
 
@@ -35,13 +35,15 @@ export async function postUpVote(req, res, next) {
       });
     }
 
-    await recommendationService.vote(id, 'up');
+    const type = req.url.includes('upvote') ? 'up' : 'down';
+
+    await recommendationService.vote(id, type);
 
     return res.status(200).send({
-      message: 'Voted Successfully +1',
+      message: `Voted ${type} Successfully`,
     });
   } catch (error) {
-    if (error instanceof Conflict) return res.status(409).send(error.message);
+    if (error instanceof Conflict) return res.status(404).send(error.message);
     return next(error);
   }
 }
