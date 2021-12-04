@@ -58,3 +58,22 @@ export async function getRecommendation(req, res, next) {
     return next(error);
   }
 }
+
+export async function getTopRecommendations(req, res, next) {
+  try {
+    const { amount } = req.params;
+
+    if (!Number.isInteger(Number(amount)) || amount < 1) {
+      return res.status(400).send({
+        message: 'Invalid Amount',
+      });
+    }
+
+    const recommendations = await recommendationService.getTop(amount);
+
+    return res.status(200).send(recommendations);
+  } catch (error) {
+    if (error instanceof NotFound) return res.status(404).send(error.message);
+    return next(error);
+  }
+}
