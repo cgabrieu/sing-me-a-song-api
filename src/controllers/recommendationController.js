@@ -35,6 +35,8 @@ export async function postUpVote(req, res, next) {
       });
     }
 
+    await recommendationService.vote(id, 'up');
+
     return res.status(200).send({
       message: 'Voted Successfully +1',
     });
