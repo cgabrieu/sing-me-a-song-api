@@ -14,12 +14,17 @@ export async function vote(id, type) {
   const recommendationExists = await recommendationRepository.findId(id);
   if (!recommendationExists) throw new NotFound('Recommendation not found');
 
-  const signal = (type === 'up') ? '+' : '-';
+  const signal = type === 'up' ? '+' : '-';
   const votedRecommendation = await recommendationRepository.vote(id, signal);
   return votedRecommendation;
 }
 
 export async function getRandom() {
   const isPopularRecommendation = Math.floor(Math.random() * 10 + 1) < 8 && true;
-  const recommendation = await recommendationRepository.getRandom();
+
+  const recommendation = isPopularRecommendation
+    ? await recommendationRepository.getPopularRandom()
+    : await recommendationRepository.getUnpopularRandom();
+
+  return recommendation;
 }

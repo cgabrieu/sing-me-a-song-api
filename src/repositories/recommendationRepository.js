@@ -24,12 +24,18 @@ export async function findId(id) {
   return result?.rows[0];
 }
 
-export async function vote(id, type) {
-  const signal = (type === 'up') ? '+' : '-';
-
+export async function vote(id, signal) {
   const result = await connection.query(
     `UPDATE recommendations SET score = score ${signal} 1 WHERE id = $1 RETURNING *`,
     [id],
   );
   return result.rows[0];
+}
+
+export async function getPopularRandom() {
+
+}
+
+export async function getUnpopularRandom() {
+
 }
