@@ -36,6 +36,8 @@ export async function getRandom() {
 }
 
 export async function getTop(amount) {
-  const result = await recommendationRepository.findByLimit(amount);
-  if (!result) throw new NotFound('No recommendations yet');
+  const topRecommendation = await recommendationRepository.getByLimit(amount);
+  if (!topRecommendation.length) throw new NotFound('No recommendations');
+
+  return topRecommendation;
 }

@@ -46,6 +46,14 @@ export async function getRandom() {
   return result.rows[0];
 }
 
+export async function getByLimit(amount) {
+  const result = await connection.query(
+    'SELECT * FROM recommendations ORDER BY score DESC LIMIT $1;',
+    [amount],
+  );
+  return result.rows;
+}
+
 export async function remove(id) {
   return connection.query(
     'DELETE FROM recommendations WHERE id = $1;',
