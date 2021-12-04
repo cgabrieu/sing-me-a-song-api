@@ -5,7 +5,7 @@ const postRecommendation = joi.object({
   name: joi.string().required(),
   youtubeLink: joi
     .string()
-    .custom((value) => !getYouTubeID(value) && true)
+    .custom((value, helper) => ((getYouTubeID(value)) ? true : helper.error('Invalid Youtube Link')))
     .required(),
 });
 
