@@ -8,3 +8,11 @@ export async function findYoutubeLink(youtubeLink) {
   );
   return result?.rows[0];
 }
+
+export async function add(name, youtubeLink) {
+  const result = await connection.query(
+    'INSERT INTO recommendations (name, "youtubeLink") VALUES ($1, $2) RETURNING *',
+    [name, youtubeLink],
+  );
+  return result.rows[0];
+}
