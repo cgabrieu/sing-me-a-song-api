@@ -1,6 +1,13 @@
-import joi from "joi";
+import joi from 'joi';
+import getYouTubeID from 'get-youtube-id';
 
-const postRecommendationSchema = joi.object({
-    name: joi.string().required(),
-    youtubeLink: 
+const postRecommendation = joi.object({
+  name: joi.string().required(),
+  youtubeLink: joi
+    .string()
+    .custom((value) => !getYouTubeID(value) && true)
+    .required(),
 });
+
+// eslint-disable-next-line import/prefer-default-export
+export { postRecommendation };
