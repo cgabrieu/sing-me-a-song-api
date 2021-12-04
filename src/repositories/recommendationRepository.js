@@ -26,16 +26,15 @@ export async function findId(id) {
 
 export async function vote(id, signal) {
   const result = await connection.query(
-    `UPDATE recommendations SET score = score ${signal} 1 WHERE id = $1 RETURNING *`,
+    `UPDATE recommendations SET score = score ${signal} 1 WHERE id = $1 RETURNING *;`,
     [id],
   );
   return result.rows[0];
 }
 
-export async function getPopularRandom() {
-
-}
-
-export async function getUnpopularRandom() {
-
+export async function getRandom(isPopularRecommendation) {
+  const result = await connection.query(
+    `SELECT * FROM recommendations WHERE score ${isPopularRecommendation} 10 ORDER BY random() LIMIT 1;`,
+  );
+  return result.rows[0];
 }

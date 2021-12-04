@@ -20,11 +20,10 @@ export async function vote(id, type) {
 }
 
 export async function getRandom() {
-  const isPopularRecommendation = Math.floor(Math.random() * 10 + 1) < 8 && true;
+  const isPopularRecommendation = Math.floor(Math.random() * 10 + 1) < 8 ? '>' : '<=';
 
-  const recommendation = isPopularRecommendation
-    ? await recommendationRepository.getPopularRandom()
-    : await recommendationRepository.getUnpopularRandom();
+  const recommendation = await recommendationRepository.getRandom(isPopularRecommendation);
+  if (!recommendation) throw new NotFound('No recommendations');
 
   return recommendation;
 }
