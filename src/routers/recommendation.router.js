@@ -6,6 +6,6 @@ const router = new Router();
 router.post('', recommendationController.postRecommendation);
 router.post('/:id/upvote', recommendationController.postVote);
 router.post('/:id/downvote', recommendationController.postVote);
-router.post('/random', recommendationController.getRecommendation);
+router.get('/random', recommendationController.getRecommendation);
 
 export default router;
