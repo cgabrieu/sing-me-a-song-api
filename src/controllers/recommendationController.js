@@ -51,7 +51,8 @@ export async function postVote(req, res, next) {
 
 export async function getRecommendation(req, res, next) {
   try {
-
+    const recommendation = await recommendationService.getRandom();
+    return res.status(200).send(recommendation);
   } catch (error) {
     if (error instanceof NotFound) return res.status(404).send(error.message);
     return next(error);
