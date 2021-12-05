@@ -17,8 +17,10 @@ const mockRecommendationRepository = {
 };
 
 const mockSong = {
+  id: 1,
   name: 'Louis Armstrong - What a Wonderful World',
   youtubeLink: 'https://www.youtube.com/watch?v=CWzrABouyeE',
+  score: 0,
 };
 
 describe('Unit Tests - Post Recommendation', () => {
@@ -32,14 +34,16 @@ describe('Unit Tests - Post Recommendation', () => {
   it('should return a conflict error when the youtube link already exists', async () => {
     mockRecommendationRepository.findYoutubeLink(() => mockSong);
     const promise = sut.post();
-    expect(promise).rejects.toThrow(Conflict);
+    await expect(promise).rejects.toThrow(Conflict);
   });
 });
 
 describe('Unit Tests - Vote Recommendation', () => {
   it('should return the added object with score +1 when up vote', async () => {
     mockRecommendationRepository.findId(() => mockSong);
-    mockRecommendationRepository.vote(() => mockSong);
-    expect(result).toMatchObject();
+    mockRecommendationRepository.vote(() => ({ ...mockSong, score: mockSong.score + 1 }));
+    const result = await sut.vote(mockSong.id, 'up');
+    console.log(result);
+    expect(result.score).toBe(mockSong.score + 1);
   });
 });
