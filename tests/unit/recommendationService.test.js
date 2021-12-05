@@ -2,6 +2,7 @@
 import * as recommendationService from '../../src/services/recommendationService.js';
 import * as recommendationRepository from '../../src/repositories/recommendationRepository.js';
 import Conflict from '../../src/errors/Conflict.js';
+import NotFound from '../../src/errors/NotFound.js';
 
 const sut = recommendationService;
 
@@ -39,11 +40,31 @@ describe('Unit Tests - Post Recommendation', () => {
 });
 
 describe('Unit Tests - Vote Recommendation', () => {
-  it('should return the added object with score +1 when up vote', async () => {
+  it('should return a object with score +1 when up vote', async () => {
     mockRecommendationRepository.findId(() => mockSong);
     mockRecommendationRepository.vote(() => ({ ...mockSong, score: mockSong.score + 1 }));
     const result = await sut.vote(mockSong.id, 'up');
-    console.log(result);
     expect(result.score).toBe(mockSong.score + 1);
+  });
+
+  it('should return a object with score -1 when down vote', async () => {
+    mockRecommendationRepository.findId(() => mockSong);
+    mockRecommendationRepository.vote(() => ({ ...mockSong, score: mockSong.score - 1 }));
+    const result = await sut.vote(mockSong.id, 'down');
+    expect(result.score).toBe(mockSong.score - 1);
+  });
+
+  it('should return a removed object with score -6 when down vote', async () => {
+    mockRecommendationRepository.findId(() => mockSong);
+    mockRecommendationRepository.vote(() => ({ ...mockSong, score: -6 }));
+    mockRecommendationRepository.remove(() => null);
+    const result = await sut.vote(mockSong.id, 'down');
+    expect(result.score).toBe(-6);
+  });
+
+  it('should return a not found error when the youtube link already exists', async () => {
+    mockRecommendationRepository.findId(() => null);
+    const promise = sut.vote();
+    await expect(promise).rejects.toThrow(NotFound);
   });
 });
