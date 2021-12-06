@@ -16,12 +16,24 @@ export async function findId(id) {
   return result?.rows[0];
 }
 
-export async function add(name, youtubeLink) {
+export async function add(name, genresIds, youtubeLink) {
   const result = await connection.query(
-    'INSERT INTO recommendations (name, "youtubeLink") VALUES ($1, $2) RETURNING *',
+    'INSERT INTO recommendations (name, "youtubeLink") VALUES ($1, $2) RETURNING *;',
     [name, youtubeLink],
   );
-  return result.rows[0];
+
+  const addedRecommendation = result.rows[0];
+
+  genresIds.forEach(async (genre) => {
+    await connection.query(
+      'INSERT INTO recommendations_genres (recommendations_id, genres_id) VALUES ($1, $2);',
+      [addedRecommendation.id, genre],
+    );
+  });
+
+  addedRecommendation.genresIds = genresIds;
+
+  return addedRecommendation;
 }
 
 export async function vote(id, signal) {

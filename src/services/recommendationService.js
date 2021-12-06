@@ -7,6 +7,7 @@ export async function post(name, genresIds, youtubeLink) {
   if (linkExists) throw new Conflict('Recommendation already exists');
 
   const addedRecommendation = await recommendationRepository.add(name, genresIds, youtubeLink);
+  console.log(addedRecommendation);
   return addedRecommendation;
 }
 
