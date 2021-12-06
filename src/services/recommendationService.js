@@ -47,3 +47,12 @@ export async function getTop(limit) {
 
   return topRecommendations;
 }
+
+export async function getByGenreId(id) {
+  const recommendation = await recommendationRepository.getRandomByGenreId(id);
+  if (!recommendation) throw new NotFound('Recommendation not found for this genre');
+
+  recommendation.genres = await genreRepository.getGenresByRecommendation(recommendation.id);
+
+  return recommendation;
+}

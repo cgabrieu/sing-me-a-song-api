@@ -58,6 +58,20 @@ export async function getRandom() {
   return result.rows[0];
 }
 
+export async function getRandomByGenreId(id) {
+  const recommendationsIdByGenreId = await connection.query(
+    'SELECT * FROM recommendations_genres WHERE genres_id = $1 ORDER BY random() LIMIT 1;',
+    [id],
+  );
+
+  const recommendation = await connection.query(
+    'SELECT * FROM recommendations WHERE id = $1;',
+    [recommendationsIdByGenreId.rows[0].recommendations_id],
+  );
+
+  return recommendation.rows[0];
+}
+
 export async function getByLimit(amount) {
   const result = await connection.query(
     'SELECT * FROM recommendations ORDER BY score DESC LIMIT $1;',
