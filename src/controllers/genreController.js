@@ -27,8 +27,27 @@ export async function postGenre(req, res, next) {
 
 export async function getGenres(req, res, next) {
   try {
-    const genres = await genreService.get();
+    const genres = await genreService.getAll();
     return res.status(200).send(genres);
+  } catch (error) {
+    if (error instanceof NotFound) return res.status(404).send(error.message);
+    return next(error);
+  }
+}
+
+export async function getGenreById(req, res, next) {
+  try {
+    const { id } = req.params;
+
+    if (!Number.isInteger(Number(id)) || id < 1) {
+      return res.status(400).send({
+        message: 'Invalid Genre Id',
+      });
+    }
+
+    const genre = await genreService.getById();
+
+    return res.status(200).send(genre);
   } catch (error) {
     if (error instanceof NotFound) return res.status(404).send(error.message);
     return next(error);

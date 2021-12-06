@@ -5,7 +5,7 @@ const router = new Router();
 
 router.post('', genreController.postGenre);
 router.get('', genreController.getGenres);
-// router.get('/:id', genreController.getRecommendation);
+router.get('/:id', genreController.getGenreById);
 // router.get('/:id/random', genreController.getTopRecommendations);
 
 export default router;

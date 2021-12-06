@@ -16,3 +16,10 @@ export async function get() {
 
   return genres;
 }
+
+export async function getById() {
+  const genres = await genreRepository.get();
+  if (!genres) throw new NotFound('No genres');
+
+  return genres;
+}
