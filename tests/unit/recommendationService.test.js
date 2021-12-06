@@ -62,9 +62,23 @@ describe('Unit Tests - Vote Recommendation', () => {
     expect(result.score).toBe(-6);
   });
 
-  it('should return a not found error when the youtube link already exists', async () => {
+  it('should return a not found error when id doesnt exist', async () => {
     mockRecommendationRepository.findId(() => null);
     const promise = sut.vote();
     await expect(promise).rejects.toThrow(NotFound);
+  });
+});
+
+describe('Unit Tests - Get Random Recommendation', () => {
+  it('should return a popular recommendation (score > 10)', async () => {
+    mockRecommendationRepository.getFilterRandom(() => ({ ...mockSong, score: 15 }));
+    const result = await sut.getRandom();
+    expect(result.score).toBeGreaterThan(10);
+  });
+
+  it('should return a unpopular recommendation (score <= 10)', async () => {
+    mockRecommendationRepository.getFilterRandom(() => ({ ...mockSong, score: 5 }));
+    const result = await sut.getRandom();
+    expect(result.score).toBeLessThanOrEqual(10);
   });
 });
