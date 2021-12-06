@@ -1,4 +1,5 @@
 import connection from '../database/database.js';
+import * as genreRepository from './genreRepository.js';
 
 export async function findYoutubeLink(youtubeLink) {
   const result = await connection.query(
@@ -48,13 +49,19 @@ export async function getFilterRandom(isPopularRecommendation) {
   const result = await connection.query(
     `SELECT * FROM recommendations WHERE score ${isPopularRecommendation} 10 ORDER BY random() LIMIT 1;`,
   );
-  return result.rows[0];
+  const recommendation = result.rows[0];
+  recommendation.genres = await genreRepository.getGenresByRecommendation(recommendation.id);
+
+  return recommendation;
 }
 
 export async function getRandom() {
   const result = await connection.query(
     'SELECT * FROM recommendations ORDER BY random() LIMIT 1;',
   );
+  // const recommendation = result.rows[0];
+  // recommendation.genres = await genreRepository.getGenresByRecommendation(recommendation.id);
+
   return result.rows[0];
 }
 

@@ -17,8 +17,23 @@ export async function add(name) {
 }
 
 export async function get() {
-  const result = await connection.query(
-    'SELECT * FROM genres;',
-  );
+  const result = await connection.query('SELECT * FROM genres;');
   return result.rows;
+}
+
+export async function getGenresByRecommendation(recommendationId) {
+  const result = await connection.query(
+    'SELECT * FROM recommendations_genres WHERE recommendations_id = $1;',
+    [recommendationId],
+  );
+
+  const genresIds = result.rows.map((genre) => genre.genres_id).join(',');
+
+  console.log(genresIds);
+
+  const genres = await connection.query(
+    `SELECT * FROM genres WHERE id in (${(genresIds)});`,
+  );
+
+  return genres.rows;
 }
