@@ -98,8 +98,17 @@ describe('Unit Tests - Get Random Recommendation', () => {
 });
 
 describe('Unit Tests - Get Top Recommendations', () => {
-  it('should return ', async () => {
+  it('should return a not found error when limit < 1', async () => {
     const limit = 0;
-    mockRecommendationRepository.getByLimit;
+    mockRecommendationRepository.getByLimit(() => []);
+    const promise = sut.getTop(limit);
+    await expect(promise).rejects.toThrow(NotFound);
+  });
+
+  it('should return a array of recommendations when limit >= 1', async () => {
+    const limit = 1;
+    mockRecommendationRepository.getByLimit(() => [mockSong]);
+    const result = await sut.getTop(limit);
+    expect(result.length).toBe(limit);
   });
 });
