@@ -13,7 +13,7 @@
 
 ## About
 
-Have you ever asked someone for a song recommendation? We have a tool to make it simple. Sing me a song is an API for music recommendation. If many people like a recommendation, the more likely it is to be recommended to others.
+Have you ever asked someone for a song recommendation? We have a tool to make this simple. Sing me a song is an API for music recommendation. If many people vote for a recommended song, it is more likely to be randomly recommended.
     
 <br/>
 
