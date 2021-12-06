@@ -24,9 +24,13 @@ export async function getById(id) {
 
   genre.recommendations = await recommendationRepository.getRecommedationsByGenre(id);
 
+  let genreScore = 0;
   for (const recommendation of genre.recommendations) {
     recommendation.genres = await genreRepository.getGenresByRecommendation(recommendation.id);
+    genreScore += recommendation.score;
   }
+
+  genre.score = genreScore;
 
   return genre;
 }
