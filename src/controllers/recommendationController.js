@@ -3,10 +3,9 @@ import NotFound from '../errors/NotFound.js';
 import * as recommendationSchema from '../schemas/recommendationSchema.js';
 import * as recommendationService from '../services/recommendationService.js';
 
-// eslint-disable-next-line import/prefer-default-export
 export async function postRecommendation(req, res, next) {
   try {
-    const { name, youtubeLink } = req.body;
+    const { name, genresIds, youtubeLink } = req.body;
 
     const { error } = recommendationSchema.postRecommendation.validate(req.body);
     if (error) {
@@ -15,7 +14,7 @@ export async function postRecommendation(req, res, next) {
       });
     }
 
-    await recommendationService.post(name, youtubeLink);
+    await recommendationService.post(name, genresIds, youtubeLink);
 
     return res.status(200).send({
       message: 'Recommendation created successfully',
