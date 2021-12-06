@@ -15,7 +15,6 @@ export async function postGenre(req, res, next) {
     }
 
     await genreService.post(name);
-
     return res.status(200).send({
       message: 'Successfully created genre',
     });
