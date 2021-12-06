@@ -30,7 +30,7 @@ Tools that were used in the project:
   <img src='https://img.shields.io/badge/Heroku-000000?style=for-the-badge&logo=heroku&logoColor=410093'>
 </p>
 
-> For more see the [package.json](https://github.com/okitauehara/sing-me-a-song-api/blob/main/package.json)
+> For more see the [package.json](https://github.com/cgabrieu/sing-me-a-song-api/blob/main/package.json)
 
 <br/>
 
