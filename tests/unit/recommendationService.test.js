@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import * as recommendationService from '../../src/services/recommendationService.js';
 import * as recommendationRepository from '../../src/repositories/recommendationRepository.js';
+import * as genreRepository from '../../src/repositories/genreRepository.js';
 import Conflict from '../../src/errors/Conflict.js';
 import NotFound from '../../src/errors/NotFound.js';
 
@@ -15,6 +16,10 @@ const mockRecommendationRepository = {
   getRandom: (f) => jest.spyOn(recommendationRepository, 'getRandom').mockImplementationOnce(f),
   getByLimit: (f) => jest.spyOn(recommendationRepository, 'getByLimit').mockImplementationOnce(f),
   remove: (f) => jest.spyOn(recommendationRepository, 'remove').mockImplementationOnce(f),
+};
+
+const mockGenreRepository = {
+  getGenresByRecommendation: (f) => jest.spyOn(genreRepository, 'getGenresByRecommendation').mockImplementation(f),
 };
 
 const mockSong = {
@@ -72,12 +77,14 @@ describe('Unit Tests - Vote Recommendation', () => {
 describe('Unit Tests - Get Random Recommendation', () => {
   it('should return a popular recommendation (score > 10)', async () => {
     mockRecommendationRepository.getFilterRandom(() => ({ ...mockSong, score: 15 }));
+    mockGenreRepository.getGenresByRecommendation(() => {});
     const result = await sut.getRandom();
     expect(result.score).toBeGreaterThan(10);
   });
 
   it('should return a unpopular recommendation (score <= 10)', async () => {
     mockRecommendationRepository.getFilterRandom(() => ({ ...mockSong, score: 5 }));
+    mockGenreRepository.getGenresByRecommendation(() => {});
     const result = await sut.getRandom();
     expect(result.score).toBeLessThanOrEqual(10);
   });
@@ -85,6 +92,7 @@ describe('Unit Tests - Get Random Recommendation', () => {
   it('should return any recommendation', async () => {
     mockRecommendationRepository.getFilterRandom(() => null);
     mockRecommendationRepository.getRandom(() => mockSong);
+    mockGenreRepository.getGenresByRecommendation(() => {});
     const result = await sut.getRandom();
     expect(result).toMatchObject(mockSong);
   });
@@ -108,6 +116,7 @@ describe('Unit Tests - Get Top Recommendations', () => {
   it('should return an array of recommendations when limit >= 1', async () => {
     const limit = 1;
     mockRecommendationRepository.getByLimit(() => [mockSong]);
+    mockGenreRepository.getGenresByRecommendation(() => {});
     const result = await sut.getTop(limit);
     expect(result.length).toBe(limit);
   });
@@ -116,7 +125,18 @@ describe('Unit Tests - Get Top Recommendations', () => {
     const limit = 999;
     const mockArray = [mockSong, mockSong, mockSong];
     mockRecommendationRepository.getByLimit(() => mockArray);
+    mockGenreRepository.getGenresByRecommendation(() => {});
     const result = await sut.getTop(limit);
     expect(result.length).toEqual(mockArray.length);
+  });
+});
+
+describe('Unit Tests - Get By Genre Id Recommendations', () => {
+  it('should return a not found error when genre id < 1 or undefined', async () => {
+    const limit = 0;
+    mockRecommendationRepository.getByLimit(() => []);
+    mockGenreRepository.getGenresByRecommendation(() => {});
+    const promise = sut.getTop(limit);
+    await expect(promise).rejects.toThrow(NotFound);
   });
 });
