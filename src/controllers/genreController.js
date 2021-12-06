@@ -27,7 +27,7 @@ export async function postGenre(req, res, next) {
 
 export async function getGenres(req, res, next) {
   try {
-    const genres = await genreService.getRandom();
+    const genres = await genreService.get();
     return res.status(200).send(genres);
   } catch (error) {
     if (error instanceof NotFound) return res.status(404).send(error.message);

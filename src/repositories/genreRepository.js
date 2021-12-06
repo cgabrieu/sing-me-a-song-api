@@ -15,3 +15,10 @@ export async function add(name) {
   );
   return result.rows[0];
 }
+
+export async function get() {
+  const result = await connection.query(
+    'SELECT * FROM genres;',
+  );
+  return result.rows;
+}

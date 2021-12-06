@@ -11,7 +11,7 @@ export async function post(name) {
 }
 
 export async function get() {
-  const genres = await genreRepository.getRandom();
+  const genres = await genreRepository.get();
   if (!genres) throw new NotFound('No genres');
 
   return genres;
