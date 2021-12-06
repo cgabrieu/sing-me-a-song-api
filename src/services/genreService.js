@@ -1,6 +1,6 @@
 import * as genreRepository from '../repositories/genreRepository.js';
 import Conflict from '../errors/Conflict.js';
-import NotFound from '../errors/NotFound.js';
+// import NotFound from '../errors/NotFound.js';
 
 // eslint-disable-next-line import/prefer-default-export
 export async function post(name) {
