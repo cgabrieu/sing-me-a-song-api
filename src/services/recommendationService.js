@@ -2,11 +2,11 @@ import * as recommendationRepository from '../repositories/recommendationReposit
 import Conflict from '../errors/Conflict.js';
 import NotFound from '../errors/NotFound.js';
 
-export async function post(name, youtubeLink) {
+export async function post(name, genresIds, youtubeLink) {
   const linkExists = await recommendationRepository.findYoutubeLink(youtubeLink);
   if (linkExists) throw new Conflict('Recommendation already exists');
 
-  const addedRecommendation = await recommendationRepository.add(name, youtubeLink);
+  const addedRecommendation = await recommendationRepository.add(name, genresIds, youtubeLink);
   return addedRecommendation;
 }
 
