@@ -1,24 +1,24 @@
 import Conflict from '../errors/Conflict.js';
-import NotFound from '../errors/NotFound.js';
-import * as recommendationSchema from '../schemas/recommendationSchema.js';
+// import NotFound from '../errors/NotFound.js';
+import * as genreSchema from '../schemas/genreSchema.js';
 import * as recommendationService from '../services/recommendationService.js';
 
 // eslint-disable-next-line import/prefer-default-export
-export async function postRecommendation(req, res, next) {
+export async function postGenre(req, res, next) {
   try {
-    const { name, youtubeLink } = req.body;
+    const { name } = req.body;
 
-    const { error } = recommendationSchema.postRecommendation.validate(req.body);
+    const { error } = genreSchema.postRecommendation.validate(req.body);
     if (error) {
       return res.status(400).send({
         message: error.message,
       });
     }
 
-    await recommendationService.post(name, youtubeLink);
+    await recommendationService.post(name);
 
     return res.status(200).send({
-      message: 'Recommendation created successfully',
+      message: 'Successfully created genre',
     });
   } catch (error) {
     if (error instanceof Conflict) return res.status(409).send(error.message);
