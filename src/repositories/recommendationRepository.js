@@ -16,12 +16,24 @@ export async function findId(id) {
   return result?.rows[0];
 }
 
-export async function add(name, youtubeLink) {
+export async function add(name, genresIds, youtubeLink) {
   const result = await connection.query(
-    'INSERT INTO recommendations (name, "youtubeLink") VALUES ($1, $2) RETURNING *',
+    'INSERT INTO recommendations (name, "youtubeLink") VALUES ($1, $2) RETURNING *;',
     [name, youtubeLink],
   );
-  return result.rows[0];
+
+  const addedRecommendation = result.rows[0];
+
+  genresIds.forEach(async (genre) => {
+    await connection.query(
+      'INSERT INTO recommendations_genres (recommendations_id, genres_id) VALUES ($1, $2);',
+      [addedRecommendation.id, genre],
+    );
+  });
+
+  addedRecommendation.genresIds = genresIds;
+
+  return addedRecommendation;
 }
 
 export async function vote(id, signal) {
@@ -46,6 +58,20 @@ export async function getRandom() {
   return result.rows[0];
 }
 
+export async function getRandomByGenreId(id) {
+  const recommendationsIdByGenreId = await connection.query(
+    'SELECT * FROM recommendations_genres WHERE genres_id = $1 ORDER BY random() LIMIT 1;',
+    [id],
+  );
+
+  const recommendation = await connection.query(
+    'SELECT * FROM recommendations WHERE id = $1;',
+    [recommendationsIdByGenreId.rows[0].recommendations_id],
+  );
+
+  return recommendation.rows[0];
+}
+
 export async function getByLimit(amount) {
   const result = await connection.query(
     'SELECT * FROM recommendations ORDER BY score DESC LIMIT $1;',
@@ -59,4 +85,19 @@ export async function remove(id) {
     'DELETE FROM recommendations WHERE id = $1;',
     [id],
   );
+}
+
+export async function getRecommedationsByGenre(genreId) {
+  const result = await connection.query(
+    'SELECT * FROM recommendations_genres WHERE genres_id = $1;',
+    [genreId],
+  );
+
+  const recommendationsIds = result.rows.map((recommendation) => recommendation.recommendations_id).join(',');
+
+  const recommendations = await connection.query(
+    `SELECT * FROM recommendations WHERE id in (${(recommendationsIds)});`,
+  );
+
+  return recommendations.rows;
 }
