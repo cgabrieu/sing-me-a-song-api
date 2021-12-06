@@ -81,4 +81,25 @@ describe('Unit Tests - Get Random Recommendation', () => {
     const result = await sut.getRandom();
     expect(result.score).toBeLessThanOrEqual(10);
   });
+
+  it('should return any recommendation', async () => {
+    mockRecommendationRepository.getFilterRandom(() => null);
+    mockRecommendationRepository.getRandom(() => mockSong);
+    const result = await sut.getRandom();
+    expect(result).toMatchObject(mockSong);
+  });
+
+  it('should return a not found error when no recommendation exists', async () => {
+    mockRecommendationRepository.getFilterRandom(() => null);
+    mockRecommendationRepository.getRandom(() => null);
+    const promise = sut.getRandom();
+    await expect(promise).rejects.toThrow(NotFound);
+  });
+});
+
+describe('Unit Tests - Get Top Recommendations', () => {
+  it('should return ', async () => {
+    const limit = 0;
+    mockRecommendationRepository.getByLimit;
+  });
 });
