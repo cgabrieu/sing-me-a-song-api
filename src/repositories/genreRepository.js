@@ -29,8 +29,6 @@ export async function getGenresByRecommendation(recommendationId) {
 
   const genresIds = result.rows.map((genre) => genre.genres_id).join(',');
 
-  console.log(genresIds);
-
   const genres = await connection.query(
     `SELECT * FROM genres WHERE id in (${(genresIds)});`,
   );
