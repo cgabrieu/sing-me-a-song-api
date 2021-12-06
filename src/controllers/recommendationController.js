@@ -76,3 +76,22 @@ export async function getTopRecommendations(req, res, next) {
     return next(error);
   }
 }
+
+export async function getRecommendationByGenreId(req, res, next) {
+  try {
+    const { id } = req.params;
+
+    if (!Number.isInteger(Number(id)) || id < 1) {
+      return res.status(400).send({
+        message: 'Invalid Genre Id',
+      });
+    }
+
+    const recommendation = await recommendationService.getByGenreId(id);
+
+    return res.status(200).send(recommendation);
+  } catch (error) {
+    if (error instanceof NotFound) return res.status(404).send(error.message);
+    return next(error);
+  }
+}
