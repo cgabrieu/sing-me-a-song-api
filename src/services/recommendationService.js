@@ -38,8 +38,12 @@ export async function getRandom() {
 }
 
 export async function getTop(limit) {
-  const topRecommendation = await recommendationRepository.getByLimit(limit);
-  if (!topRecommendation.length) throw new NotFound('No recommendations');
+  const topRecommendations = await recommendationRepository.getByLimit(limit);
+  if (!topRecommendations.length) throw new NotFound('No recommendations');
 
-  return topRecommendation;
+  for (const recommendation of topRecommendations) {
+    recommendation.genres = await genreRepository.getGenresByRecommendation(recommendation.id);
+  }
+
+  return topRecommendations;
 }
