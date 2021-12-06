@@ -25,8 +25,7 @@ export async function vote(id, type) {
 export async function getRandom() {
   const isPopularRecommendation = Math.floor(Math.random() * 10 + 1) < 8 ? '>' : '<=';
 
-  let recommendation;
-  recommendation = await recommendationRepository.getFilterRandom(isPopularRecommendation);
+  let recommendation = await recommendationRepository.getFilterRandom(isPopularRecommendation);
   if (!recommendation) {
     recommendation = await recommendationRepository.getRandom(isPopularRecommendation);
     if (!recommendation) throw new NotFound('No recommendations');
@@ -35,8 +34,8 @@ export async function getRandom() {
   return recommendation;
 }
 
-export async function getTop(amount) {
-  const topRecommendation = await recommendationRepository.getByLimit(amount);
+export async function getTop(limit) {
+  const topRecommendation = await recommendationRepository.getByLimit(limit);
   if (!topRecommendation.length) throw new NotFound('No recommendations');
 
   return topRecommendation;

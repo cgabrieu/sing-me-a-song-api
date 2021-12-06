@@ -8,14 +8,6 @@ export async function findYoutubeLink(youtubeLink) {
   return result?.rows[0];
 }
 
-export async function add(name, youtubeLink) {
-  const result = await connection.query(
-    'INSERT INTO recommendations (name, "youtubeLink") VALUES ($1, $2) RETURNING *',
-    [name, youtubeLink],
-  );
-  return result.rows[0];
-}
-
 export async function findId(id) {
   const result = await connection.query(
     'SELECT * FROM recommendations WHERE id = $1;',
@@ -24,9 +16,10 @@ export async function findId(id) {
   return result?.rows[0];
 }
 
-export async function getFilterRandom(isPopularRecommendation) {
+export async function add(name, youtubeLink) {
   const result = await connection.query(
-    `SELECT * FROM recommendations WHERE score ${isPopularRecommendation} 10 ORDER BY random() LIMIT 1;`,
+    'INSERT INTO recommendations (name, "youtubeLink") VALUES ($1, $2) RETURNING *',
+    [name, youtubeLink],
   );
   return result.rows[0];
 }
@@ -35,6 +28,13 @@ export async function vote(id, signal) {
   const result = await connection.query(
     `UPDATE recommendations SET score = score ${signal} 1 WHERE id = $1 RETURNING *;`,
     [id],
+  );
+  return result.rows[0];
+}
+
+export async function getFilterRandom(isPopularRecommendation) {
+  const result = await connection.query(
+    `SELECT * FROM recommendations WHERE score ${isPopularRecommendation} 10 ORDER BY random() LIMIT 1;`,
   );
   return result.rows[0];
 }
