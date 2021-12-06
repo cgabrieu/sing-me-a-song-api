@@ -29,7 +29,9 @@ Tools that were used in the project:
   <img src='https://img.shields.io/badge/npm-000000?style=for-the-badge&logo=npm'>
   <img src='https://img.shields.io/badge/Heroku-000000?style=for-the-badge&logo=heroku&logoColor=410093'>
 </p>
-  
+
+> For more see the [package.json](https://github.com/okitauehara/sing-me-a-song-api/blob/main/package.json)
+
 <br/>
 
 ## Getting Started
