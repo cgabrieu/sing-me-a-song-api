@@ -21,6 +21,11 @@ export async function get() {
   return result.rows;
 }
 
+export async function getById(id) {
+  const result = await connection.query('SELECT * FROM genres WHERE id = $1;', [id]);
+  return result.rows[0];
+}
+
 export async function getGenresByRecommendation(recommendationId) {
   const result = await connection.query(
     'SELECT * FROM recommendations_genres WHERE recommendations_id = $1;',

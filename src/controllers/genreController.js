@@ -45,8 +45,7 @@ export async function getGenreById(req, res, next) {
       });
     }
 
-    const genre = await genreService.getById();
-
+    const genre = await genreService.getById(id);
     return res.status(200).send(genre);
   } catch (error) {
     if (error instanceof NotFound) return res.status(404).send(error.message);

@@ -72,3 +72,18 @@ export async function remove(id) {
     [id],
   );
 }
+
+export async function getRecommedationsByGenre(genreId) {
+  const result = await connection.query(
+    'SELECT * FROM recommendations_genres WHERE genres_id = $1;',
+    [genreId],
+  );
+
+  const recommendationsIds = result.rows.map((recommendation) => recommendation.recommendations_id).join(',');
+
+  const recommendations = await connection.query(
+    `SELECT * FROM recommendations WHERE id in (${(recommendationsIds)});`,
+  );
+
+  return recommendations.rows;
+}
