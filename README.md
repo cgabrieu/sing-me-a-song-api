@@ -74,8 +74,13 @@ CREATE DATABASE singmeasong;
 ```sh
 npm run start:dev
 ```
-  
-<br/>
+
+## How to contribute
+
+1. Fork the project.
+2. Create a new branch with your changes: `git checkout -b feat/myFeatureName`
+3. For each feature implemented, make a commit specifying what was done
+4. Submit your changes: `git push -u origin feat/myFeatureName`
 
 ## Developer
 
