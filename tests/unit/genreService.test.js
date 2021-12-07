@@ -39,10 +39,15 @@ describe('Unit Tests - Post Genre', () => {
 });
 
 describe('Unit Tests - Get All Genres', () => {
+  it('should return a not found when no genres exists ', async () => {
+    mockGenreRepository.get(() => []);
+    const promise = sut.getAll();
+    await expect(promise).rejects.toThrow(NotFound);
+  });
+
   it('should return the added object', async () => {
-    mockGenreRepository.findName(() => null);
-    mockGenreRepository.add(() => mockGenre);
-    const result = await sut.post();
-    expect(result).toMatchObject(mockGenre);
+    mockGenreRepository.get(() => [mockGenre]);
+    const result = await sut.getAll();
+    expect(result).toMatchObject([mockGenre]);
   });
 });
