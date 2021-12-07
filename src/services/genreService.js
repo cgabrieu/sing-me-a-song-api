@@ -13,7 +13,7 @@ export async function post(name) {
 
 export async function getAll() {
   const genres = await genreRepository.get();
-  if (!genres) throw new NotFound('No genres');
+  if (!genres.length) throw new NotFound('No genres');
 
   return genres;
 }
