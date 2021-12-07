@@ -66,7 +66,7 @@ export async function getRandomByGenreId(id) {
 
   const recommendation = await connection.query(
     'SELECT * FROM recommendations WHERE id = $1;',
-    [recommendationsIdByGenreId.rows[0].recommendations_id],
+    [recommendationsIdByGenreId.rows[0]?.recommendations_id],
   );
 
   return recommendation.rows[0];

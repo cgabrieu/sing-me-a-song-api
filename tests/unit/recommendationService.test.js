@@ -16,6 +16,7 @@ const mockRecommendationRepository = {
   getRandom: (f) => jest.spyOn(recommendationRepository, 'getRandom').mockImplementationOnce(f),
   getByLimit: (f) => jest.spyOn(recommendationRepository, 'getByLimit').mockImplementationOnce(f),
   remove: (f) => jest.spyOn(recommendationRepository, 'remove').mockImplementationOnce(f),
+  getRandomByGenreId: (f) => jest.spyOn(recommendationRepository, 'getRandomByGenreId').mockImplementationOnce(f),
 };
 
 const mockGenreRepository = {
@@ -132,11 +133,24 @@ describe('Unit Tests - Get Top Recommendations', () => {
 });
 
 describe('Unit Tests - Get By Genre Id Recommendations', () => {
-  it('should return a not found error when genre id < 1 or undefined', async () => {
-    const limit = 0;
-    mockRecommendationRepository.getByLimit(() => []);
-    mockGenreRepository.getGenresByRecommendation(() => {});
-    const promise = sut.getTop(limit);
+  it('should return a not found error when genre id < 1', async () => {
+    const id = 0;
+    mockRecommendationRepository.getRandomByGenreId(() => null);
+    const promise = sut.getByGenreId(id);
     await expect(promise).rejects.toThrow(NotFound);
+  });
+
+  it('should return a not found error when genre id doesnt exists', async () => {
+    const id = 9999999999;
+    mockRecommendationRepository.getRandomByGenreId(() => undefined);
+    const promise = sut.getByGenreId(id);
+    await expect(promise).rejects.toThrow(NotFound);
+  });
+
+  it('should return a recommendation when id exists', async () => {
+    const id = 1;
+    mockRecommendationRepository.getRandomByGenreId(() => mockSong);
+    const result = await sut.getByGenreId(id);
+    expect(result.id).toBe(id);
   });
 });
