@@ -2,7 +2,7 @@
 
 <div align="center">
   <a href="https://sing-me-a-song-cgabrieu.herokuapp.com/recommendations/top/10">
-    <img src="https://user-images.githubusercontent.com/25062334/144647668-cf0d316d-afc8-48fe-b230-62f9d44d7dfe.png" width="300px">
+    <img src="https://kitsamho.github.io/images/song-lyrics/project.gif" width="300px">
   </a>
     <br />
     <a href="https://sing-me-a-song-cgabrieu.herokuapp.com/recommendations/top/10">View the deploy</a>
